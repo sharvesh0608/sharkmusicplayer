@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "132614888245",
+    "project_id": "shark-music-player",
+    "storage_bucket": "shark-music-player.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132614888245:android:ea11234e5817dee5714a7c",
+        "android_client_info": {
+          "package_name": "com.shapps.sharkmusicplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132614888245-lbtdb2fff20abcaaefpgtnctlh14ki1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUE1gGHXfc4-BshwmvG1HgbwPRmxdVVhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132614888245-lbtdb2fff20abcaaefpgtnctlh14ki1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
