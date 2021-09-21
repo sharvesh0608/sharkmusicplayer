@@ -14,36 +14,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import javax.inject.Inject
-private const val SERVICE_TAG= "MusicService"
+
+private const val SERVICE_TAG = "MusicService"
 
 @AndroidEntryPoint
-class MusicService: MediaBrowserServiceCompat() {
+class MusicService : MediaBrowserServiceCompat() {
 
-   @Inject
-   lateinit var dataSourceFactory:DefaultDataSourceFactory
+    @Inject
+    lateinit var dataSourceFactory: DefaultDataSourceFactory
 
-   @Inject
-   lateinit var exoPlayer: SimpleExoPlayer
+    @Inject
+    lateinit var exoPlayer: SimpleExoPlayer
 
-   private val serviceJob= Job()
-    private val serviceScope= CoroutineScope(Dispatchers.Main + serviceJob)
-private lateinit var mediaSession: MediaSessionCompat
-private lateinit var mediaSessionConnector: MediaSessionConnector
+    private val serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
+    private lateinit var mediaSession: MediaSessionCompat
+    private lateinit var mediaSessionConnector: MediaSessionConnector
 
-override fun onCreate() {
-    super.onCreate()
-    val activityIntent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
-        PendingIntent.getActivity(this, 0, it, 0)
+    override fun onCreate() {
+        super.onCreate()
+        val activityIntent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
+            PendingIntent.getActivity(this, 0, it, 0)
+        }
+        mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
+            setSessionActivity(activityIntent)
+            isActive = true
+        }
+
+        sessionToken = mediaSession.sessionToken
+        mediaSessionConnector = MediaSessionConnector(mediaSession)
+        mediaSessionConnector.setPlayer(exoPlayer)
     }
-    mediaSession = MediaSessionCompat(this, SERVICE_TAG).apply {
-        setSessionActivity(activityIntent)
-        isActive = true
-    }
 
-    sessionToken = mediaSession.sessionToken
-    mediaSessionConnector = MediaSessionConnector(mediaSession)
-    mediaSessionConnector.setPlayer(exoPlayer)
-}
     override fun onGetRoot(
         clientPackageName: String,
         clientUid: Int,
@@ -56,6 +58,7 @@ override fun onCreate() {
         super.onDestroy()
         serviceScope.cancel()
     }
+
     override fun onLoadChildren(
         parentId: String,//call so that we can get list of songs
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
