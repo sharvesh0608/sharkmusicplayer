@@ -17,6 +17,7 @@ import com.shapps.sharkmusicplayer.exoplayer.callbacks.MusicPlaybackPreparer
 import com.shapps.sharkmusicplayer.exoplayer.callbacks.MusicPlayerEventsListener
 import com.shapps.sharkmusicplayer.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.shapps.sharkmusicplayer.other.Constants.MEDIA_ROOT_ID
+import com.shapps.sharkmusicplayer.other.Constants.NETWORK_ERROR
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -140,6 +141,7 @@ class MusicService : MediaBrowserServiceCompat() {
                            isPlayerInitialized=true
                        }
                      }else{
+                         mediaSession.sendSessionEvent(NETWORK_ERROR,null)
                           result.sendResult(null)
                      }
 
