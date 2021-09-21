@@ -56,7 +56,7 @@ class MusicService : MediaBrowserServiceCompat() {
     override fun onCreate() {
         super.onCreate()
         serviceScope.launch {
-            firebaseMusicSource.fetechMediaData()
+            firebaseMusicSource.fetchMediaData()
         }
         val activityIntent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
             PendingIntent.getActivity(this, 0, it, 0)
@@ -123,8 +123,9 @@ class MusicService : MediaBrowserServiceCompat() {
     override fun onDestroy() {
         super.onDestroy()
         serviceScope.cancel()
-        exoPlayer.release()
         exoPlayer.removeListener(musicPlayerEventListener)
+        exoPlayer.release()
+
     }
 
     override fun onLoadChildren(
@@ -136,7 +137,7 @@ class MusicService : MediaBrowserServiceCompat() {
                  val resutlsSent =firebaseMusicSource.whenReady { isInitialized ->
                      if(isInitialized){
                          result.sendResult(firebaseMusicSource.asMediaItems())
-                       if(!isPlayerInitialized){
+                       if(!isPlayerInitialized &&firebaseMusicSource.songs.isNotEmpty()){
                            preparePlayer(firebaseMusicSource.songs,firebaseMusicSource.songs[0],false)
                            isPlayerInitialized=true
                        }

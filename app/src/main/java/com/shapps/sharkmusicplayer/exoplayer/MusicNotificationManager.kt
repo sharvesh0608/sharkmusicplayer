@@ -26,12 +26,12 @@ notificationListener: PlayerNotificationManager.NotificationListener,
   private val notificationManager:PlayerNotificationManager
 
   init {
-      val mediaCOntroller =MediaControllerCompat(context,sesionToken)
+      val mediaController =MediaControllerCompat(context,sesionToken)
 
       notificationManager= PlayerNotificationManager.createWithNotificationChannel(
           context,
           NOTIFICATION_CHANNEL_ID,
-      R.string.notification_channel_name,
+          R.string.notification_channel_name,
           R.string.notification_channel_description,
           NOTIFICATION_ID,
           DescriptionAdapter(mediaController),
