@@ -27,8 +27,7 @@ class SongFragment: Fragment(R.layout.fragment_song) {
 
     @Inject
     lateinit var glide: RequestManager
-
-    private lateinit var mainViewModel: MainViewModel
+        private lateinit var mainViewModel: MainViewModel
     private val songViewModel: SongViewModel by viewModels()
 
     private var curPlayingSong: Song? = null
