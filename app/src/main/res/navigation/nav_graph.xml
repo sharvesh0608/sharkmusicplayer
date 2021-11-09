@@ -8,4 +8,10 @@
         android:id="@+id/homeFragment"
         android:name="com.shapps.sharkmusicplayer.ui.veiwmodels.fragments.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/songFragment"
+        android:name="com.shapps.sharkmusicplayer.ui.veiwmodels.fragments.SongFragment"
+        android:label="SongFragment" />
+    <action android:id="@+id/globalActionToSongFragmennt"
+        app:destination="@+id/songFragment"/>
 </navigation>
